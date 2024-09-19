@@ -70,19 +70,19 @@ main{
 }
 .area{
   display: grid;
-  grid-template-columns: repeat(10,28px);
+  grid-template-columns: repeat(10,calc(0.7vw + 16.8px));
   gap: 5px;
   justify-content: center;
 }
 .cell{
-  height: 28px;
-  width: 28px;
+  height: calc(0.7vw + 16.8px);
+  width: calc(0.7vw + 16.8px);
   background-color: #0DBBDD;
   border-radius:3px;
   text-align: center;
   font-weight: bold;
-  line-height: 28px;
-  font-size: 22px;
+  line-height: calc(0.7vw + 16.8px);
+  font-size: calc(0.9vw + 13.2px);
   cursor: pointer;
 }
 .pointsBlocks {
