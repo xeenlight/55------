@@ -70,13 +70,13 @@ main{
 }
 .area{
   display: grid;
-  grid-template-columns: repeat(10,calc(0.7vw + 16.8px));
+  grid-template-columns: repeat(10,calc(0.9vw + 18px));
   gap: 5px;
   justify-content: center;
 }
 .cell{
-  height: calc(0.7vw + 16.8px);
-  width: calc(0.7vw + 16.8px);
+  height: calc(0.9vw + 18px);
+  width: calc(0.9vw + 18px);
   background-color: #0DBBDD;
   border-radius:3px;
   text-align: center;
