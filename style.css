@@ -114,6 +114,13 @@ label {
   transition: outline 0.3s, transform 0.3s; /* Плавный переход для обводки и трансформации */
   box-sizing: border-box; /* Учитывать padding и border в размерах */
 }
+.light-label {
+    background-color: #fafbff;
+}
+
+.dark-label {
+    background-color: #101217;
+}
 
 label input {
   display: none;
