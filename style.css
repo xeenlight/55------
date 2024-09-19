@@ -1,8 +1,9 @@
 :root{
---purple:#2f40d3;
---light-purple:#242947;
---lighter-purple:#797e9a;
+--black:#101217;
+--light-black:#1d1f25;
+--grey:#797e9a;
 --green:#66a663;
+--light-green:#2af599;
 ---white:#fff;
 --orange:#dbac36;
 
@@ -11,33 +12,49 @@
   margin: 0;
   padding: 0;
 }
+
 body{
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Roboto", sans-serif;
   color: white;
-  background-color: var(--purple);
+  background-color: var(--black);
   padding: 20px;
 }
 header{
   display: flex;
   border-radius: 20px;
-  background-color:var(--light-purple);
+  background-color:var(--light-black);
   padding: 20px;
   align-items: center;
   gap: 15px;
 }
 header img{
   height: 80px;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s; /* Плавный переход */
+}
+
+header img:hover {
+  transform: scale(1.05); /* Увеличение на 5% */
+}
+header img:active {
+  transform: scale(1); /* Возврат к изначальному размеру при нажатии */
 }
 h1{
   text-transform: uppercase;
 }
 .exit{
-  color:var(--purple);
+  color: #0DBBDD;
   text-decoration: underline;
   cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s; /* Плавный переход */
 }
-.exit:hover{
-  color: var(---white);
+
+.exit:hover {
+  transform: scale(1.05); /* Увеличение на 5% */
+  text-shadow: 0 1px 10px #0DBBDD; /* Тень цвета #0DBBDD */
+}
+.exit:active {
+  transform: scale(1); /* Возврат к изначальному размеру при нажатии */
 }
 main{
   margin-top: 20px;
@@ -46,7 +63,7 @@ main{
   flex-wrap: wrap-reverse;
 }
 .gridBlocks{
-  background-color: var(--light-purple);
+  background-color: var(--light-black);
   padding: 20px;
   border-radius: 20px;
   flex-grow: 1000;
@@ -60,15 +77,16 @@ main{
 .cell{
   height: 28px;
   width: 28px;
-  background-color: var(--purple);
+  background-color: #0DBBDD;
   border-radius:3px;
   text-align: center;
   font-weight: bold;
   line-height: 28px;
   font-size: 22px;
+  cursor: pointer;
 }
-.pointsBlocks{
-  background-color: var(--light-purple);
+.pointsBlocks {
+  background-color: var(--light-black);
   padding: 20px;
   border-radius: 20px;
   flex-grow: 1;
@@ -83,23 +101,40 @@ h2{
   display: flex;
   flex-wrap: wrap;
   gap: 5px;
+  
 }
-label{
-background-color:var(--purple);
-padding: 5px;
-border-radius: 30px;
-min-width: 100px;
-text-align: center;
-flex-grow: 1;
+label {
+  background-color: #101217; /* Изначальный цвет */
+  padding: 5px;
+  border-radius: 30px;
+  min-width: 100px;
+  text-align: center;
+  flex-grow: 1;
+  cursor: pointer;
+  transition: outline 0.3s, transform 0.3s; /* Плавный переход для обводки и трансформации */
+  box-sizing: border-box; /* Учитывать padding и border в размерах */
 }
-label input{
+
+label input {
   display: none;
 }
-label:has(input:checked){
-  background-color: var(--orange);
+
+label:has(input:checked) {
+  background-color: #0DBBDD; /* Цвет при нажатии */
 }
-.btn{
-  background-color: var(--green);
+
+label:hover {
+  outline: 1px solid #0DBBDD;
+  box-shadow: 0 1px 10px #0DBBDD;
+  transform: scale(1.05); /* Увеличение на 5% */
+}
+
+label:active {
+  transform: scale(1); /* Возврат к изначальному размеру при нажатии */
+}
+.btn {
+  background: linear-gradient(to right, #2af599 20%, #0DBBDD 100%);
+  text-shadow: 0 3px 5px rgba(0, 0, 0, 0.4);
   height: 60px;
   margin-top: 10px;
   display: flex;
@@ -107,9 +142,24 @@ label:has(input:checked){
   align-items: center;
   font-weight: bold;
   border-radius: 30px;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s; /* Плавный переход */
 }
+
+.btn:hover {
+  transform: scale(1.05); /* Увеличение на 5% */
+  box-shadow: 0 1px 10px #0DBBDD; /* Тень цвета #0DBBDD */
+}
+.btn:active {
+  transform: scale(1); /* Возврат к изначальному размеру при нажатии */
+}
+
 .cell.active{
-  background-color:var(--lighter-purple);
+  background-color:var(--light-green);
+  background-size: contain;
+}
+.cell.passiv{
+  background-color:var(--grey);
   background-size: contain;
 }
 .cell.flag{

@@ -4,12 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Сапер</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./style.css">
   <link rel="icon" type="image/x-icon" href="./img/292a20bc-9e2b-4167-954c-9bc509f18874.png"> 
 </head>
 <body>
   <header>
-    <img src="./img/292a20bc-9e2b-4167-954c-9bc509f18874.png" alt="">
+    <img id="themeToggleImg" src="./img/292a20bc-9e2b-4167-954c-9bc509f18874.png" alt="">
     <h1>Сапер</h1>
     <span>[]</span>
     <div class="exit">Выйти</div>
@@ -17,12 +20,12 @@
   <main>
   <div class="gridBlocks">
     <div class="area">
-      <div class="cell  active"></div>
+      <div class="cell passiv"></div>
       <div class="cell  flag"></div>
       <div class="cell  bomb"></div>
-      <div class="cell">1</div>
-      <div class="cell">2</div>
-      <div class="cell">3</div>
+      <div class="cell passiv">1</div>
+      <div class="cell passiv">2</div>
+      <div class="cell passiv">3</div>
       <div class="cell"></div>
       <div class="cell"></div>
       <div class="cell"></div>
@@ -130,5 +133,6 @@
 
 
   <script src="./script.js"></script>
+
 </body>
 </html>
