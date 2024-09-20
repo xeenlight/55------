@@ -70,18 +70,18 @@ main{
 }
 .area{
   display: grid;
-  grid-template-columns: repeat(10,calc(0.9vw + 22px));
+  grid-template-columns: repeat(10,calc(0.6vw + 18px));
   gap: 5px;
   justify-content: center;
 }
 .cell{
-  height: calc(0.9vw + 22px);
-  width: calc(0.9vw + 22px);
+  height: calc(0.6vw + 18px);
+  width: calc(0.6vw + 18px);
   background-color: #0DBBDD;
   border-radius:3px;
   text-align: center;
   font-weight: bold;
-  line-height: calc(0.9vw + 22px);
+  line-height: calc(0.6vw + 18px);
   font-size: calc(0.9vw + 13.2px);
   cursor: pointer;
 }
