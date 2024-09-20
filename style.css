@@ -85,6 +85,14 @@ main{
   font-size: calc(0.9vw + 13.2px);
   cursor: pointer;
 }
+.cell.light {
+    background-color: #2af599;
+}
+
+.cell.dark {
+    background-color: #0DBBDD;
+}
+
 .pointsBlocks {
   background-color: var(--light-black);
   padding: 20px;
@@ -139,6 +147,7 @@ label:hover {
 label:active {
   transform: scale(1); /* Возврат к изначальному размеру при нажатии */
 }
+
 .btn {
   background: linear-gradient(to right, #2af599 20%, #0DBBDD 100%);
   color: #fdfdfd;

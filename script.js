@@ -12,6 +12,12 @@ function toggleTheme() {
         document.querySelector('.gridBlocks').style.backgroundColor = '#ebe9f4';
         document.querySelector('.pointsBlocks').style.backgroundColor = '#ebe9f4';
         
+        // Устанавливаем класс для .cell на светлой теме
+        document.querySelectorAll('.cell').forEach(cell => {
+            cell.classList.remove('dark');
+            cell.classList.add('light');
+        });
+        
         document.querySelectorAll('label').forEach(label => {
             label.classList.remove('dark-label');
             label.classList.add('light-label');
@@ -26,6 +32,12 @@ function toggleTheme() {
         document.querySelector('header').style.backgroundColor = '#1d1f25';
         document.querySelector('.gridBlocks').style.backgroundColor = '#1d1f25';
         document.querySelector('.pointsBlocks').style.backgroundColor = '#1d1f25';
+        
+        // Устанавливаем класс для .cell на темной теме
+        document.querySelectorAll('.cell').forEach(cell => {
+            cell.classList.remove('light');
+            cell.classList.add('dark');
+        });
         
         document.querySelectorAll('label').forEach(label => {
             label.classList.remove('light-label');
