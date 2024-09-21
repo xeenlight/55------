@@ -133,6 +133,7 @@ h2{
   gap: 5px;
   
 }
+/* Основные стили label */
 label {
   background-color: #101217; /* Изначальный цвет */
   padding: 5px;
@@ -144,26 +145,40 @@ label {
   transition: outline 0.3s, transform 0.3s; /* Плавный переход для обводки и трансформации */
   box-sizing: border-box; /* Учитывать padding и border в размерах */
 }
+
 .light-label {
-    background-color: #fafbff;
+  background-color: #fafbff;
 }
 
 .dark-label {
-    background-color: #101217;
+  background-color: #101217;
 }
 
 label input {
   display: none;
 }
 
-label:has(input:checked) {
-  background-color: #0DBBDD; /* Цвет при нажатии */
+:root {
+  --checked-color-dark: #0DBBDD;
+  --checked-color-light: #2af599;
 }
 
-label:hover {
+/* Стили для темной темы */
+body.dark-theme label:hover {
   outline: 1px solid #0DBBDD;
   box-shadow: 0 1px 10px #0DBBDD;
   transform: scale(1.05); /* Увеличение на 5% */
+}
+
+/* Стили для светлой темы */
+body.light-theme label:hover {
+  outline: 1px solid #2af599;
+  box-shadow: 0 1px 10px #2af599;
+  transform: scale(1.05); /* Увеличение на 5% */
+}
+
+label:has(input:checked) {
+  background-color: var(--checked-color);
 }
 
 label:active {
@@ -211,3 +226,4 @@ label:active {
   background-color: var(--orange);
   background-size: contain;
 }
+
