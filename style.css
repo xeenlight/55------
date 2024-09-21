@@ -27,18 +27,40 @@ header{
   align-items: center;
   gap: 15px;
 }
-header img{
+header img {
   height: 80px;
   cursor: pointer;
-  transition: transform 0.3s, box-shadow 0.3s; /* Плавный переход */
+  transition: transform 0.3s, box-shadow 0.3s;
+  animation: float 1s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
 }
 
 header img:hover {
-  transform: scale(1.05); /* Увеличение на 5% */
+  transform: scale(1.05) translateY(-5px);
 }
+
+header img:hover.dark {
+  filter: drop-shadow(0 3px 8px #0DBBDD); /* Темная тема */
+}
+
+header img:hover.light {
+  filter: drop-shadow(0 3px 8px #2af599); /* Светлая тема */
+}
+
 header img:active {
-  transform: scale(1); /* Возврат к изначальному размеру при нажатии */
+  transform: scale(1);
 }
+
+
+
 h1{
   text-transform: uppercase;
 }
