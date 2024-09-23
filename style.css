@@ -48,11 +48,11 @@ header img:hover {
 }
 
 header img:hover.dark {
-  filter: drop-shadow(0 3px 8px #0DBBDD); /* Темная тема */
+  filter: drop-shadow(0 3px 4px #0DBBDD); /* Темная тема */
 }
 
 header img:hover.light {
-  filter: drop-shadow(0 3px 8px #2af599); /* Светлая тема */
+  filter: drop-shadow(0 3px 4px #2af599); /* Светлая тема */
 }
 
 header img:active {
@@ -217,7 +217,7 @@ label:active {
   background-size: contain;
 }
 .cell.flag{
-  background-image: url(./img/flag-unscreen.gif);
+  background-image: url(./img/flag.gif);
   background-color: var(--green);
   background-size: contain;
 }
