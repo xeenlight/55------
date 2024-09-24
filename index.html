@@ -107,7 +107,7 @@
     <div class="inputBlock">
       <label>
         1000
-        <input type="radio" name="point" value="1000">
+        <input type="radio" name="point" value="1000" checked>
       </label>
       <label>
         2000
@@ -126,10 +126,20 @@
         <input type="radio" name="point" value="10000">
       </label>
     </div>
-    <div class="btn">Играть</div>
+    <div class="btn" id="gameButton">Играть</div>
   </div>
   </main>
 
+
+  <section>
+    <div class="PopUp">
+      <h2>Авторизация</h2>
+      <form id="authorization">
+        <input type="text" name="username">
+      </form>
+      <div class="btn" id="gameButton">Играть</div>
+    </div>
+  </section>
 
 
   <script src="./script.js"></script>

@@ -227,3 +227,36 @@ label:active {
   background-size: contain;
 }
 
+
+section{
+  background: rgba(255, 255, 255, 0.0);
+  backdrop-filter: blur(10px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  
+}
+.PopUp{
+  background-color: #1d1f25;
+  border: 2px solid ;
+  border-image: linear-gradient(to right, #2af599 20%, #0DBBDD 100%) 1;
+  width: 300px;
+  text-align: center;
+  padding: 20px 20px;
+}
+.PopUp h2 {
+  text-transform: uppercase;
+}
+.PopUp input {
+  font-size: 26px;
+  outline: none;
+  border-radius: 15px;
+  border: 0;
+  padding: 0 15px;
+  max-width: 260px;
+}
