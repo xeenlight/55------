@@ -220,9 +220,3 @@ registrationButton.addEventListener('click', async () => {
     await authorizationForm.dispatchEvent(new Event('submit'));
 });
 
-// Добавляем обработчик нажатия клавиши Enter
-usernameInput.addEventListener('keypress', (event) => {
-    if (event.key === 'Enter') {
-        registrationButton.click();
-    }
-});

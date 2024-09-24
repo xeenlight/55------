@@ -37,12 +37,20 @@ header{
   display: flex;
   align-items: center;
 }
-.HeaderUser{
-
-  background-color:#2d2f36;
+/* Стили для темной темы */
+.HeaderUser {
+  background-color: #101217;
   border-radius: 25px;
-  padding: 10px 5px 10px 15px; 
+  padding: 10px 5px 10px 15px;
 }
+
+/* Стили для светлой темы */
+.light-theme .HeaderUser {
+  background-color: #fff;
+  border-radius: 25px;
+  padding: 10px 5px 10px 15px;
+}
+
 .HeaderUser span {
   display: block; /* Делаем span блочным элементом */
   font-weight: bold;
@@ -294,6 +302,7 @@ h4{
   font-weight: normal;
   margin-bottom: 11px;
 }
+/* Стили для темной темы */
 .PopUp input {
   font-size: 26px;
   max-width: 260px;
@@ -306,6 +315,21 @@ h4{
   border-radius: 0.5rem;
   text-align: center;
 }
+
+/* Стили для светлой темы */
+.light-theme .PopUp input {
+  font-size: 26px;
+  max-width: 260px;
+  background-color: #dbdbdb;
+  border: none;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  color: #000; /* Изменяем цвет текста на черный */
+  width: 100%;
+  border-radius: 0.5rem;
+  text-align: center;
+}
+
 .btn2 {
   background: linear-gradient(to right, #2af599 20%, #0DBBDD 100%);
   color: #fdfdfd;
