@@ -1,15 +1,16 @@
 let themeToggleImg = document.getElementById('themeToggleImg');
-let isDarkTheme = true;
+let isDarkTheme = localStorage.getItem('isDarkTheme') === 'true'; // Загружаем тему из localStorage
 let headerImg = document.querySelector('header img');
 
 document.addEventListener('DOMContentLoaded', () => {
-    updateTheme();
+    updateTheme(); // Обновляем тему при загрузке страницы
 });
 
 // Функция для переключения тем
 function toggleTheme() {
     isDarkTheme = !isDarkTheme; // Переключаем тему
-    updateTheme();
+    localStorage.setItem('isDarkTheme', isDarkTheme); // Сохраняем в localStorage
+    updateTheme(); // Обновляем стиль страницы
 }
 
 function updateTheme() {

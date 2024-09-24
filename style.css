@@ -241,14 +241,34 @@ section{
   align-items: center;
   
 }
-.PopUp{
-  background-color: #1d1f25;
-  border: 2px solid ;
+.custom::placeholder {
+  color: #999; /* Цвет текста подсказки */
+  font-size: 20px; /* Размер шрифта */
+  text-align: center;
+}
+
+:root {
+  --popup-background-light: rgb(235, 233, 244);
+  --popup-background-dark: #1d1f25;
+}
+
+body.light-theme {
+  --popup-background: var(--popup-background-light);
+}
+
+body.dark-theme {
+  --popup-background: var(--popup-background-dark);
+}
+
+.PopUp {
+  background-color: var(--popup-background);
+  border: 2px solid;
   border-image: linear-gradient(to right, #2af599 20%, #0DBBDD 100%) 1;
   width: 300px;
   text-align: center;
-  padding: 20px 20px;
+  padding: 20px;
 }
+
 .PopUp h2 {
   text-transform: uppercase;
 }
