@@ -22,17 +22,37 @@ body{
   background-color: var(--black);
   padding: 20px;
 }
+h1{
+  text-transform: uppercase;
+}
 header{
   display: flex;
   border-radius: 20px;
   background-color:var(--light-black);
   padding: 20px;
   align-items: center;
-  gap: 15px;
+  justify-content: space-between;
 }
-header img {
+.NameGame{
+  display: flex;
+  align-items: center;
+}
+.HeaderUser{
+
+  background-color:#2d2f36;
+  border-radius: 25px;
+  padding: 10px 5px 10px 15px; 
+}
+.HeaderUser span {
+  display: block; /* Делаем span блочным элементом */
+  font-weight: bold;
+  align-items: center;
+  margin-right: 10px;
+}
+#themeToggleImg{
   height: 80px;
   cursor: pointer;
+  margin-right: 5px;
   transition: transform 0.3s, box-shadow 0.3s;
   animation: float 1s ease-in-out infinite;
 }
@@ -46,39 +66,36 @@ header img {
   }
 }
 
-header img:hover {
+#themeToggleImg:hover {
   transform: scale(1.05) translateY(-5px);
 }
 
-header img:hover.dark {
+#themeToggleImg:hover.dark {
   filter: drop-shadow(0 3px 4px #0DBBDD); /* Темная тема */
 }
 
-header img:hover.light {
+#themeToggleImg:hover.light {
   filter: drop-shadow(0 3px 4px #2af599); /* Светлая тема */
 }
 
-header img:active {
+#themeToggleImg:active {
   transform: scale(1);
 }
-
-
-
-h1{
-  text-transform: uppercase;
-}
-.exit{
-  color: #0DBBDD;
+#exit {
+  width: 50px;
+  height: 50px;
+  animation: none; /* Убираем анимацию */
+  transition: none; /* Убираем переходы */
+  filter: sepia(1) hue-rotate(180deg) saturate(5); /* Настройте фильтры для перекраски */
   text-decoration: underline;
   cursor: pointer;
   transition: transform 0.3s, box-shadow 0.3s; /* Плавный переход */
 }
-
-.exit:hover {
+#exit:hover {
   transform: scale(1.05); /* Увеличение на 5% */
-  text-shadow: 0 1px 10px #0DBBDD; /* Тень цвета #0DBBDD */
+  filter: drop-shadow(0 0px 2px #0DBBDD); /* Темная тема */
 }
-.exit:active {
+#exit:active {
   transform: scale(1); /* Возврат к изначальному размеру при нажатии */
 }
 main{
@@ -310,4 +327,9 @@ h4{
 }
 .btn2:active {
   transform: scale(1); /* Возврат к изначальному размеру при нажатии */
+}
+.HeaderUser{
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

@@ -140,7 +140,7 @@ function showUser() {
     let popUpSection = document.querySelector("section");
     popUpSection.style.display = "none"; 
     let userInfo = document.querySelector("header span");
-    userInfo.innerHTML = `[${username}, ${balance}]`;
+    userInfo.innerHTML = `${username}, ${balance}`;
 
     localStorage.setItem("username", username);
 
@@ -152,7 +152,7 @@ function showUser() {
 }
 
 // Обработчик выхода
-document.querySelector(".exit").addEventListener("click", exit);
+document.getElementById("exit").addEventListener("click", exit);
 
 function exit() {
     let popUpSection = document.querySelector("section");
