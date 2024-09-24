@@ -6,7 +6,10 @@
 --light-green:#2af599;
 ---white:#fff;
 --orange:#dbac36;
-
+--popup-background-light: rgb(235, 233, 244);
+--popup-background-dark: #1d1f25;
+--checked-color-dark: #0DBBDD;
+--checked-color-light: #2af599;
 }
 *{
   margin: 0;
@@ -158,10 +161,6 @@ label input {
   display: none;
 }
 
-:root {
-  --checked-color-dark: #0DBBDD;
-  --checked-color-light: #2af599;
-}
 
 /* Стили для темной темы */
 body.dark-theme label:hover {
@@ -247,10 +246,7 @@ section{
   text-align: center;
 }
 
-:root {
-  --popup-background-light: rgb(235, 233, 244);
-  --popup-background-dark: #1d1f25;
-}
+
 
 body.light-theme {
   --popup-background: var(--popup-background-light);
@@ -262,12 +258,13 @@ body.dark-theme {
 
 .PopUp {
   background-color: var(--popup-background);
-  border: 2px solid;
+  border: 4px solid transparent; /* Убедитесь, что используется прозрачный цвет */
   border-image: linear-gradient(to right, #2af599 20%, #0DBBDD 100%) 1;
   width: 300px;
   text-align: center;
   padding: 20px;
 }
+
 
 .PopUp h2 {
   text-transform: uppercase;
@@ -279,4 +276,5 @@ body.dark-theme {
   border: 0;
   padding: 0 15px;
   max-width: 260px;
+  text-align: center;
 }
