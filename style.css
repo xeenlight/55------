@@ -258,23 +258,56 @@ body.dark-theme {
 
 .PopUp {
   background-color: var(--popup-background);
-  border: 4px solid transparent; /* Убедитесь, что используется прозрачный цвет */
+  border: 2px solid transparent; /* Убедитесь, что используется прозрачный цвет */
   border-image: linear-gradient(to right, #2af599 20%, #0DBBDD 100%) 1;
-  width: 300px;
   text-align: center;
+
   padding: 20px;
 }
 
 
-.PopUp h2 {
-  text-transform: uppercase;
+.PopUp h3 {
+  font-size: 24px;
+  margin-bottom: 30px;
+  
+
+}
+h4{
+  text-align: left;
+  font-weight: normal;
+  margin-bottom: 11px;
 }
 .PopUp input {
   font-size: 26px;
-  outline: none;
-  border-radius: 15px;
-  border: 0;
-  padding: 0 15px;
   max-width: 260px;
+  background-color: #2d2f36;
+  border: none;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  color: #fff;
+  width: 100%;
+  border-radius: 0.5rem;
   text-align: center;
+}
+.btn2 {
+  background: linear-gradient(to right, #2af599 20%, #0DBBDD 100%);
+  color: #fdfdfd;
+  text-shadow: 0 3px 5px rgba(0, 0, 0, 0.4);
+  height: 60px;
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s; /* Плавный переход */
+}
+.btn2:hover {
+  transform: scale(1.02); /* Увеличение на 5% */
+  box-shadow: 0 1px 10px #0DBBDD; /* Тень цвета #0DBBDD */
+}
+.btn2:active {
+  transform: scale(1); /* Возврат к изначальному размеру при нажатии */
 }
