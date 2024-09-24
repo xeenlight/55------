@@ -25,7 +25,6 @@ function updateTheme() {
         headerImg.classList.remove('light');
         headerImg.classList.add('dark');
 
-        // Устанавливаем цвет для checked в темной теме
         document.body.style.setProperty('--checked-color', '#0DBBDD');
 
         document.querySelectorAll('label').forEach(label => {
@@ -33,11 +32,9 @@ function updateTheme() {
             label.classList.add('dark-label');
         });
 
-        // Меняем цвет для блоков на темной теме
         document.querySelector('.gridBlocks').style.backgroundColor = '#1d1f25';
         document.querySelector('.pointsBlocks').style.backgroundColor = '#1d1f25';
 
-        // Меняем класс для ячеек на темную тему
         document.querySelectorAll('.cell').forEach(cell => {
             cell.classList.remove('light');
             cell.classList.add('dark');
@@ -52,7 +49,6 @@ function updateTheme() {
         headerImg.classList.remove('dark');
         headerImg.classList.add('light');
 
-        // Устанавливаем цвет для checked в светлой теме
         document.body.style.setProperty('--checked-color', '#2af599');
 
         document.querySelectorAll('label').forEach(label => {
@@ -60,11 +56,9 @@ function updateTheme() {
             label.classList.add('light-label');
         });
 
-        // Меняем цвет для блоков на светлой теме
         document.querySelector('.gridBlocks').style.backgroundColor = '#ebe9f4';
         document.querySelector('.pointsBlocks').style.backgroundColor = '#ebe9f4';
 
-        // Меняем класс для ячеек на светлую тему
         document.querySelectorAll('.cell').forEach(cell => {
             cell.classList.remove('dark');
             cell.classList.add('light');
@@ -75,16 +69,14 @@ function updateTheme() {
 // Добавляем обработчик клика для переключения темы
 themeToggleImg.addEventListener('click', toggleTheme);
 
-// Добавляем обработчик клика для label, чтобы предотвратить переключение темы
+// Обработчик клика для label
 document.querySelectorAll('label').forEach(label => {
     label.addEventListener('click', (event) => {
-        event.stopPropagation(); // предотвращает переключение темы
+        event.stopPropagation();
     });
 });
 
-
-
-
+// Функция отправки запросов
 async function sendRequest(url, method, data) {
     url = `https://tg-api.tehnikum.school/tehnikum_course/minesweeper/${url}`;
 
@@ -97,9 +89,7 @@ async function sendRequest(url, method, data) {
             },
             body: JSON.stringify(data)
         });
-
-        response = await response.json();
-        return response;
+        return await response.json();
     } else if (method === "GET") {
         url = url + "?" + new URLSearchParams(data);
         let response = await fetch(url, {
@@ -109,23 +99,23 @@ async function sendRequest(url, method, data) {
                 'Content-Type': 'application/json'
             }
         });
-        response = await response.json();
-        return response;
+        return await response.json();
     }
 }
 
 let username;
 let balance;
-checkUser()
+checkUser();
 
-let points = 1000
+let points = 1000;
 
 let authorizationForm = document.getElementById("authorization");
 authorizationForm.addEventListener("submit", authorization);
 
+// Обработчик авторизации
 async function authorization(event) {
     event.preventDefault();
-
+    
     const formData = new FormData(event.target);
     username = formData.get("username");
 
@@ -144,6 +134,7 @@ async function authorization(event) {
     }
 }
 
+// Функция отображения информации о пользователе
 function showUser() {
     let popUpSection = document.querySelector("section");
     popUpSection.style.display = "none"; 
@@ -152,14 +143,14 @@ function showUser() {
 
     localStorage.setItem("username", username);
 
-    
-    if (localStorage.getItem("geme_id")){
-        gameButton.setAttribute("data-game", "stop")
+    if (localStorage.getItem("game_id")) {
+        gameButton.setAttribute("data-game", "stop");
     } else {
-        gameButton.setAttribute("data-game", "start")
+        gameButton.setAttribute("data-game", "start");
     }
 }
 
+// Обработчик выхода
 document.querySelector(".exit").addEventListener("click", exit);
 
 function exit() {
@@ -171,6 +162,7 @@ function exit() {
     localStorage.removeItem("username");
 }
 
+// Проверка пользователя
 async function checkUser() {
     if (localStorage.getItem("username")) {
         username = localStorage.getItem("username");
@@ -180,7 +172,6 @@ async function checkUser() {
         } else {
             balance = response.balance;
             showUser();
-
         }
     } else {
         let popUpSection = document.querySelector("section");
@@ -188,38 +179,49 @@ async function checkUser() {
     }
 }
 
-let pointBtns = document.getElementsByName("point")
-pointBtns.forEach((elem) =>{
-    elem.addEventListener("input", setPoints)
-})
+// Обработчик для установки очков
+let pointBtns = document.getElementsByName("point");
+pointBtns.forEach((elem) => {
+    elem.addEventListener("input", setPoints);
+});
 
-function setPoints(){
-    let checkedBtn = document.querySelector("input:checked")
-    points = +checkedBtn.value
+function setPoints() {
+    let checkedBtn = document.querySelector("input:checked");
+    points = +checkedBtn.value;
 }
 
-let gameButton = document.getElementById("gameButton")
-gameButton.addEventListener("click", startOrStopGame)
+let gameButton = document.getElementById("gameButton");
+gameButton.addEventListener("click", startOrStopGame);
 
-
-function startOrStopGame(){
-    let option = gameButton.getAttribute("data-game")
-    if(option == "start"){
-        if(points>0){
-            startGame()
+function startOrStopGame() {
+    let option = gameButton.getAttribute("data-game");
+    if (option == "start") {
+        if (points > 0) {
+            startGame();
         }
-    }else if (option == "stop"){
-
+    } else if (option == "stop") {
+        // Логика остановки игры
     }
-} 
+}
 
 async function startGame() {
-    let response = await sendRequest("new_game", "POST", {username,points})
-    if(response.error){
-        alert(response.message)
+    let response = await sendRequest("new_game", "POST", { username, points });
+    if (response.error) {
+        alert(response.message);
     } else {
         console.log(response);
-        
     }
 }
 
+// Добавляем обработчик клика для кнопки "Войти"
+const registrationButton = document.getElementById('registrationButton');
+registrationButton.addEventListener('click', async () => {
+    await authorizationForm.dispatchEvent(new Event('submit'));
+});
+
+// Добавляем обработчик нажатия клавиши Enter
+usernameInput.addEventListener('keypress', (event) => {
+    if (event.key === 'Enter') {
+        registrationButton.click();
+    }
+});
