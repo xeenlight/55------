@@ -91,21 +91,21 @@ header{
   transform: scale(1);
 }
 #exit {
-  width: 50px;
+  width: 90px;
   height: 50px;
-  animation: none; /* Убираем анимацию */
-  transition: none; /* Убираем переходы */
+  animation: none;
+  transition: none;
   cursor: pointer;
-  transition: transform 0.3s, box-shadow 0.3s; /* Плавный переход */
-  border-radius: 50%;
+  transition: transform 0.3s, box-shadow 0.3s;
+  border-radius: 30px;
   background: linear-gradient(to right, #2af599 20%, #0DBBDD 100%);
   color: #fdfdfd;
   font-size: 15px;
   text-shadow: 0 3px 5px rgba(0, 0, 0, 0.4);
   font-weight: bold;
-  display: flex; /* Используем flexbox */
-  align-items: center; /* Вертикальное выравнивание */
-  justify-content: center; /* Горизонтальное выравнивание */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #exit:hover {
