@@ -42,6 +42,7 @@ header{
   background-color: #101217;
   border-radius: 25px;
   padding: 10px 15px 10px 15px;
+  gap: 5px;
 }
 
 /* Стили для светлой темы */
@@ -55,8 +56,8 @@ header{
   display: flex;
   font-weight: bold;
   align-items: center;
-  margin-right: 10px;
   flex-wrap: wrap;
+
 }
 #themeToggleImg{
   height: 80px;
