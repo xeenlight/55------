@@ -41,21 +41,22 @@ header{
 .HeaderUser {
   background-color: #101217;
   border-radius: 25px;
-  padding: 10px 5px 10px 15px;
+  padding: 10px 15px 10px 15px;
 }
 
 /* Стили для светлой темы */
 .light-theme .HeaderUser {
   background-color: #fff;
   border-radius: 25px;
-  padding: 10px 5px 10px 15px;
+  padding: 10px 15px 10px 15px;
 }
 
 .HeaderUser span {
-  display: block; /* Делаем span блочным элементом */
+  display: flex;
   font-weight: bold;
   align-items: center;
   margin-right: 10px;
+  flex-wrap: wrap;
 }
 #themeToggleImg{
   height: 80px;
@@ -94,18 +95,30 @@ header{
   height: 50px;
   animation: none; /* Убираем анимацию */
   transition: none; /* Убираем переходы */
-  filter: sepia(1) hue-rotate(180deg) saturate(5); /* Настройте фильтры для перекраски */
-  text-decoration: underline;
   cursor: pointer;
   transition: transform 0.3s, box-shadow 0.3s; /* Плавный переход */
+  border-radius: 50%;
+  background: linear-gradient(to right, #2af599 20%, #0DBBDD 100%);
+  color: #fdfdfd;
+  font-size: 15px;
+  text-shadow: 0 3px 5px rgba(0, 0, 0, 0.4);
+  font-weight: bold;
+  display: flex; /* Используем flexbox */
+  align-items: center; /* Вертикальное выравнивание */
+  justify-content: center; /* Горизонтальное выравнивание */
 }
+
 #exit:hover {
   transform: scale(1.05); /* Увеличение на 5% */
   filter: drop-shadow(0 0px 2px #0DBBDD); /* Темная тема */
 }
+
 #exit:active {
   transform: scale(1); /* Возврат к изначальному размеру при нажатии */
 }
+
+
+
 main{
   margin-top: 20px;
   display: flex;
@@ -352,8 +365,27 @@ h4{
 .btn2:active {
   transform: scale(1); /* Возврат к изначальному размеру при нажатии */
 }
-.HeaderUser{
+.HeaderUser {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
+
+}
+
+.pointImg {
+  width: 20px;
+  height: 20px;
+}
+.spanOne{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+}
+.spanTwo{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
 }

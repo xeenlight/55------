@@ -139,9 +139,13 @@ async function authorization(event) {
 function showUser() {
     let popUpSection = document.querySelector("section");
     popUpSection.style.display = "none"; 
-    let userInfo = document.querySelector("header span");
-    userInfo.innerHTML = `${username}, ${balance}`;
+    let userInfo = document.querySelector(".spanOne");
+    userInfo.innerHTML = `${username}`;
 
+    let userInfo2 = document.querySelector(".spanTwo");
+    userInfo2.innerHTML = `<img src="./img/point.png" class="pointImg">${balance}`;
+
+    
     localStorage.setItem("username", username);
 
     if (localStorage.getItem("game_id")) {
