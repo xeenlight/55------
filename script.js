@@ -139,13 +139,21 @@ async function authorization(event) {
 function showUser() {
     let popUpSection = document.querySelector("section");
     popUpSection.style.display = "none"; 
-    let userInfo = document.querySelector(".spanOne");
+
+    // Обновляем информацию в HeaderUser
+    let userInfo = document.querySelector(".HeaderUser .spanOne");
     userInfo.innerHTML = `${username}`;
 
-    let userInfo2 = document.querySelector(".spanTwo");
+    let userInfo2 = document.querySelector(".HeaderUser .spanTwo");
     userInfo2.innerHTML = `<img src="./img/point.png" class="pointImg">${balance}`;
 
-    
+    // Обновляем информацию в sidebar
+    let sidebarUserInfo = document.querySelector(".sidebar-content .spanOne");
+    sidebarUserInfo.innerHTML = `${username}`;
+
+    let sidebarUserInfo2 = document.querySelector(".sidebar-content .spanTwo");
+    sidebarUserInfo2.innerHTML = `<img src="./img/point.png" class="pointImg">${balance}<img src="./img/point.png" class="pointImg">`;
+
     localStorage.setItem("username", username);
 
     if (localStorage.getItem("game_id")) {
@@ -154,6 +162,7 @@ function showUser() {
         gameButton.setAttribute("data-game", "start");
     }
 }
+
 
 // Обработчик выхода
 document.getElementById("exit").addEventListener("click", exit);
