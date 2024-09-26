@@ -398,10 +398,12 @@ h4{
 }
 
 .burger-icon {
-  width: 30px;
-  height: 3px;
+  width: 50px;
+  height: 6px;
   background: linear-gradient(to right, #2af599 20%, #0DBBDD 100%);
-  margin: 5px 0;
+  margin: 10px 0;
+  margin-right: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 }
 
 .sidebar {
@@ -439,19 +441,28 @@ h4{
 }
 .sidebar-content {
   display: flex;
-  flex-direction: column; /* Располагаем элементы по вертикали */
-  justify-content: center; /* Выравниваем по центру по вертикали */
+  flex-direction: column; 
+  justify-content: center; 
   align-items: center; 
-
+  padding: 20px;
+}
+.sidebar-content span{
+  width: 100%; 
+  height: 50px; 
+  border-radius: 30px;
+  background: #1d1f25;
+  color: #fdfdfd;
+  text-shadow: 0 3px 5px rgba(0, 0, 0, 0.4);
+  font-weight: bold;
+  box-sizing: border-box; 
+  margin-bottom: 20px;
 }
 
-.spanOne, .spanTwo, #exit {
-  margin: 10px 0; /* Добавляем отступы между элементами */
-}
+
 
 #exit2 {
-  width: 90px;
-  height: 50px;
+  width: 100%; 
+  height: 50px; 
   animation: none;
   transition: none;
   cursor: pointer;
@@ -459,13 +470,15 @@ h4{
   border-radius: 30px;
   background: linear-gradient(to right, #2af599 20%, #0DBBDD 100%);
   color: #fdfdfd;
-  font-size: 15px;
+  font-size: 20px;
   text-shadow: 0 3px 5px rgba(0, 0, 0, 0.4);
   font-weight: bold;
   display: flex;
   align-items: center;
   justify-content: center;
+  box-sizing: border-box; /* Чтобы padding не увеличивал размер */
 }
+
 
 #exit2:hover {
   transform: scale(1.05); /* Увеличение на 5% */

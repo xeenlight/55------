@@ -15,6 +15,8 @@ function toggleTheme() {
 
 function updateTheme() {
     const body = document.body;
+    const sidebar = document.querySelector('.sidebar'); // Получаем боковую панель
+    const sidebarContentSpans = document.querySelectorAll('.sidebar-content span'); // Получаем все span внутри sidebar-content
 
     if (isDarkTheme) {
         body.classList.remove('light-theme');
@@ -40,6 +42,15 @@ function updateTheme() {
             cell.classList.remove('light');
             cell.classList.add('dark');
         });
+
+        sidebar.style.backgroundColor = '#101217'; // Устанавливаем цвет для темной темы
+
+        // Обновляем стиль для span
+        sidebarContentSpans.forEach(span => {
+            span.style.background = '#1d1f25';
+            span.style.color = '#fdfdfd';
+            span.style.textShadow = '0 3px 5px rgba(0, 0, 0, 0.4)';
+        });
     } else {
         body.classList.remove('dark-theme');
         body.classList.add('light-theme');
@@ -64,8 +75,18 @@ function updateTheme() {
             cell.classList.remove('dark');
             cell.classList.add('light');
         });
+
+        sidebar.style.backgroundColor = '#fff'; // Устанавливаем цвет для светлой темы
+
+        // Обновляем стиль для span
+        sidebarContentSpans.forEach(span => {
+            span.style.background = '#ebe9f4';
+            span.style.color = '#1d1f25';
+            span.style.textShadow = 'none'; // Убираем текстовую тень для светлой темы
+        });
     }
 }
+
 
 // Добавляем обработчик клика для переключения темы
 themeToggleImg.addEventListener('click', toggleTheme);
