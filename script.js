@@ -263,12 +263,22 @@ const closeBtn = document.getElementById('closeBtn');
 const closeAutuExit = document.getElementById('exit2');
 
 burgerMenu.addEventListener('click', () => {
-  sidebar.classList.toggle('active');
+    sidebar.classList.toggle('active');
 });
 
 closeBtn.addEventListener('click', () => {
-  sidebar.classList.remove('active'); // Закрыть меню
+    sidebar.classList.remove('active'); // Закрыть меню
 });
+
 closeAutuExit.addEventListener('click', () => {
-  sidebar.classList.remove('active'); // Закрыть меню
+    sidebar.classList.remove('active'); // Закрыть меню
 });
+
+// Закрытие меню при клике вне его области
+document.addEventListener('click', (event) => {
+    // Проверяем, если клик был вне бокового меню и кнопки открытия
+    if (!sidebar.contains(event.target) && !burgerMenu.contains(event.target)) {
+        sidebar.classList.remove('active'); // Закрыть меню
+    }
+});
+
