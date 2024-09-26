@@ -276,9 +276,22 @@ closeAutuExit.addEventListener('click', () => {
 
 // Закрытие меню при клике вне его области
 document.addEventListener('click', (event) => {
-    // Проверяем, если клик был вне бокового меню и кнопки открытия
     if (!sidebar.contains(event.target) && !burgerMenu.contains(event.target)) {
         sidebar.classList.remove('active'); // Закрыть меню
     }
 });
 
+// Обработка свайпов по всему экрану
+let startX;
+
+document.addEventListener('touchstart', (event) => {
+    startX = event.touches[0].clientX;
+});
+
+document.addEventListener('touchmove', (event) => {
+    const currentX = event.touches[0].clientX;
+    // Проверяем, что свайп идет слева направо
+    if (startX - currentX < 50) {
+        sidebar.classList.remove('active'); // Закрыть меню
+    }
+});
