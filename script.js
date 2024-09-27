@@ -253,9 +253,31 @@ async function startGame() {
 
 // Добавляем обработчик клика для кнопки "Войти"
 const registrationButton = document.getElementById('registrationButton');
-registrationButton.addEventListener('click', async () => {
-    await authorizationForm.dispatchEvent(new Event('submit'));
+const usernameInput = authorizationForm.querySelector('input[name="username"]');
+const errorMessage = document.createElement('p');
+
+errorMessage.style.color = 'red';
+errorMessage.style.display = 'none'; // Скрываем сообщение по умолчанию
+authorizationForm.appendChild(errorMessage);
+
+registrationButton.addEventListener('click', () => {
+    if (usernameInput.value.trim() === '') {
+        errorMessage.textContent = 'Обязательное поле';
+        errorMessage.style.display = 'block'; // Показываем сообщение
+        usernameInput.classList.add('error'); // Добавляем класс ошибки
+    } else {
+        errorMessage.style.display = 'none'; // Скрываем сообщение, если поле заполнено
+        usernameInput.classList.remove('error'); // Удаляем класс ошибки
+        // Здесь добавьте код для авторизации
+        authorizationForm.dispatchEvent(new Event('submit'));
+    }
 });
+usernameInput.addEventListener('input', () => {
+    if (usernameInput.value.length > 20) {
+        usernameInput.value = usernameInput.value.slice(0, 20); // Обрезаем ввод до 20 символов
+    }
+});
+
 
 const burgerMenu = document.getElementById('burgerMenu');
 const sidebar = document.getElementById('sidebar');
