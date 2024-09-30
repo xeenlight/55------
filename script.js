@@ -168,6 +168,23 @@ function showUser() {
     let userInfo2 = document.querySelector(".HeaderUser .spanTwo");
     userInfo2.innerHTML = `<img src="./img/point.png" class="pointImg">${balance}`;
 
+    // Проверяем, есть ли сохраненный аватар в localStorage для данного пользователя
+    let avatarImg = document.getElementById('userAvatar');
+    let avatarSrc = localStorage.getItem(`avatar_${username}`); // Сохраняем аватар с уникальным ключом для пользователя
+    
+    if (!avatarSrc) {
+        avatarSrc = getRandomAvatar(); // Генерируем случайный аватар, если нет сохраненного
+        localStorage.setItem(`avatar_${username}`, avatarSrc); // Сохраняем его с уникальным ключом
+    }
+
+    avatarImg.src = avatarSrc; // Устанавливаем аватар
+    avatarImg.style.display = 'inline'; // Показываем аватарку
+
+    // Устанавливаем аватарку в боковом меню
+    let sidebarAvatarImg = document.getElementById('sidebarUserAvatar');
+    sidebarAvatarImg.src = avatarSrc; // Используем тот же аватар
+    sidebarAvatarImg.style.display = 'inline'; // Показываем аватарку
+
     // Обновляем информацию в sidebar
     let sidebarUserInfo = document.querySelector(".sidebar-content .spanOne");
     sidebarUserInfo.innerHTML = `${username}`;
@@ -183,6 +200,9 @@ function showUser() {
         gameButton.setAttribute("data-game", "start");
     }
 }
+
+
+
 
 
 // Обработчик выхода
@@ -209,7 +229,7 @@ async function checkUser() {
             alert(response.message);
         } else {
             balance = response.balance;
-            showUser();
+            showUser(); // Показываем пользователя и его данные
         }
     } else {
         let popUpSection = document.querySelector("section");
@@ -317,3 +337,15 @@ document.addEventListener('touchmove', (event) => {
         sidebar.classList.remove('active'); // Закрыть меню
     }
 });
+
+
+const avatars = [
+    'image/11.png',
+    'image/12.png',
+    'image/13.png',
+    'image/14.png',
+];
+function getRandomAvatar() {
+    const randomIndex = Math.floor(Math.random() * avatars.length);
+    return avatars[randomIndex];
+}

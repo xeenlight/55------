@@ -13,33 +13,41 @@
 <body>
   <header>
     <div class="NameGame">
-      <img id="themeToggleImg" src="./img/bomb_1f4a3.webp" alt="">
-      <h1>Сапер</h1>
+        <img id="themeToggleImg" src="./img/bomb_1f4a3.webp" alt="">
+        <h1>Сапер</h1>
     </div>
-  
-    <div class="HeaderUser">
-      <span class="spanOne">[]</span>
-      <span class="spanTwo">[]</span>
-      <div id="exit">Выйти</div>
+    
+    <div class="UserContainer">
+      <div class="HeaderUser">
+        <div class="HeaderConteiner">
+          <img id="userAvatar" src="" alt="Аватар">
+          <span class="spanOne">[]</span>
+        </div>
+      </div>
+      <div class="HeaderUser">
+          <span class="spanTwo">[]</span>
+          <div id="exit">Выйти</div>
+      </div>
+
     </div>
-  
     <div class="burger-menu" id="burgerMenu">
-      <div class="burger-icon"></div>
-      <div class="burger-icon"></div>
-      <div class="burger-icon"></div>
+        <div class="burger-icon"></div>
+        <div class="burger-icon"></div>
+        <div class="burger-icon"></div>
     </div>
-  
+
     <div class="sidebar" id="sidebar">
-      <div class="close" id="closeBtn">
-        <button class="close-btn" >Закрыть</button>
-      </div>
-      <div class="sidebar-content">
-        <span class="spanOne">[]</span>
-        <span class="spanTwo">[]</span>
-        <div id="exit2">Выйти</div>
-      </div>
+        <div class="close" id="closeBtn">
+            <button class="close-btn">Закрыть</button>
+        </div>
+        <div class="sidebar-content">
+            <img id="sidebarUserAvatar" src="" alt="Аватар">
+            <span class="spanOne">[]</span>
+            <span class="spanTwo">[]</span>
+            <div id="exit2">Выйти</div>
+        </div>
     </div>
-  </header>
+</header>
   
   
   
@@ -157,16 +165,16 @@
   </main>
 
 
-  <section>
+<section>
     <div class="PopUp">
-      <h3>Совершите вход в Игру</h3>
-      <form id="authorization">
-        <h4>Имя пользователя</h4>
-        <input type="text" name="username" placeholder="UserName" class="custom">
-      </form>
-      <div class="btn2" id="registrationButton">Войти</div>
+        <h3>Совершите вход в Игру</h3>
+        <form id="authorization">
+            <h4>Имя пользователя</h4>
+            <input type="text" name="username" placeholder="UserName" class="custom">
+        </form>
+        <div class="btn2" id="registrationButton">Войти</div>
     </div>
-  </section>
+</section>
 
 
   <script src="./script.js"></script>
