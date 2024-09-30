@@ -5,6 +5,7 @@ let headerImg = document.querySelector('header img');
 document.addEventListener('DOMContentLoaded', () => {
     updateTheme(); // Обновляем тему при загрузке страницы
     getRandomAvatar(); // Получаем случайный аватар
+
 });
 
 // Функция для переключения тем
@@ -158,7 +159,7 @@ async function authorization(event) {
 }
 
 // Функция отображения информации о пользователе
-async function showUser() {
+function showUser() {
     let popUpSection = document.querySelector("section");
     popUpSection.style.display = "none"; 
 
@@ -171,25 +172,20 @@ async function showUser() {
 
     // Проверяем, есть ли сохраненный аватар в localStorage для данного пользователя
     let avatarImg = document.getElementById('userAvatar');
-    let sidebarAvatarImg = document.getElementById('sidebarUserAvatar');
-    let avatarSrc = localStorage.getItem(`avatar_${username}`);
+    let avatarSrc = localStorage.getItem(`avatar_${username}`); // Сохраняем аватар с уникальным ключом для пользователя
     
     if (!avatarSrc) {
         avatarSrc = getRandomAvatar(); // Генерируем случайный аватар, если нет сохраненного
         localStorage.setItem(`avatar_${username}`, avatarSrc); // Сохраняем его с уникальным ключом
     }
 
-    // Предварительная загрузка изображения
-    const img = new Image();
-    img.src = avatarSrc;
+    avatarImg.src = avatarSrc; // Устанавливаем аватар
+    avatarImg.style.display = 'inline'; // Показываем аватарку
 
-    img.onload = () => {
-        avatarImg.src = avatarSrc; // Устанавливаем аватар
-        avatarImg.style.display = 'inline'; // Показываем аватарку
-
-        sidebarAvatarImg.src = avatarSrc; // Устанавливаем аватарку в боковом меню
-        sidebarAvatarImg.style.display = 'inline'; // Показываем аватарку
-    };
+    // Устанавливаем аватарку в боковом меню
+    let sidebarAvatarImg = document.getElementById('sidebarUserAvatar');
+    sidebarAvatarImg.src = avatarSrc; // Используем тот же аватар
+    sidebarAvatarImg.style.display = 'inline'; // Показываем аватарку
 
     // Обновляем информацию в sidebar
     let sidebarUserInfo = document.querySelector(".sidebar-content .spanOne");
@@ -206,7 +202,6 @@ async function showUser() {
         gameButton.setAttribute("data-game", "start");
     }
 }
-
 
 
 
@@ -346,8 +341,19 @@ document.addEventListener('touchmove', (event) => {
 });
 
 
+const avatars = [
+    'image/11.png',
+    'image/12.png',
+    'image/13.png',
+    'image/14.png',
+    'image/15.png',
+    'image/16.png',
+    'image/17.png',
+    'image/18.png',
+    'image/19.png',
+    'image/20.png',
+];
 function getRandomAvatar() {
-    const avatarElements = document.querySelectorAll('#avatars img');
-    const randomIndex = Math.floor(Math.random() * avatarElements.length);
-    return avatarElements[randomIndex].src;
+    const randomIndex = Math.floor(Math.random() * avatars.length);
+    return avatars[randomIndex];
 }
