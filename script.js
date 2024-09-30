@@ -339,13 +339,13 @@ document.addEventListener('touchmove', (event) => {
 });
 
 
-const avatars = [
-    'image/11.png',
-    'image/12.png',
-    'image/13.png',
-    'image/14.png',
-];
-function getRandomAvatar() {
-    const randomIndex = Math.floor(Math.random() * avatars.length);
-    return avatars[randomIndex];
+function getAvatarFromUsername(username) {
+    const avatars = [
+        'image/11.png',
+        'image/12.png',
+        'image/13.png',
+        'image/14.png',
+    ];
+    const hash = [...username].reduce((acc, char) => acc + char.charCodeAt(0), 0);
+    return avatars[hash % avatars.length]; // Выбираем аватар на основе хэша
 }
