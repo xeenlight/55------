@@ -4,6 +4,7 @@ let headerImg = document.querySelector('header img');
 
 document.addEventListener('DOMContentLoaded', () => {
     updateTheme(); // Обновляем тему при загрузке страницы
+    getRandomAvatar(); // Получаем случайный аватар
 });
 
 // Функция для переключения тем
@@ -345,13 +346,8 @@ document.addEventListener('touchmove', (event) => {
 });
 
 
-const avatars = [
-    'image/11.png',
-    'image/12.png',
-    'image/13.png',
-    'image/14.png',
-];
 function getRandomAvatar() {
-    const randomIndex = Math.floor(Math.random() * avatars.length);
-    return avatars[randomIndex];
+    const avatarElements = document.querySelectorAll('#avatars img');
+    const randomIndex = Math.floor(Math.random() * avatarElements.length);
+    return avatarElements[randomIndex].src;
 }
