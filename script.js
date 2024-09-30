@@ -143,7 +143,13 @@ async function authorization(event) {
     const formData = new FormData(event.target);
     username = formData.get("username");
 
+    // Скрыть лоадер после выполнения запроса
     let response = await sendRequest("user", "GET", { username });
+    loader.style.display = 'none'; // Скрываем лоадер
+
+    // Показываем PopUp снова после обработки
+    popUp.style.display = 'block'; // Или 'block', в зависимости от ваших стилей
+
     if (response.error) {
         let regResponse = await sendRequest("user", "POST", { username });
         if (regResponse.error) {  
@@ -277,6 +283,8 @@ async function startGame() {
 const registrationButton = document.getElementById('registrationButton');
 const usernameInput = authorizationForm.querySelector('input[name="username"]');
 const errorMessage = document.createElement('p');
+const loader = document.querySelector('.loader'); // Получаем элемент лоадера
+const popUp = document.querySelector('.PopUp'); // Получаем элемент PopUp
 
 errorMessage.style.color = 'red';
 errorMessage.style.display = 'none'; // Скрываем сообщение по умолчанию
@@ -290,13 +298,10 @@ registrationButton.addEventListener('click', () => {
     } else {
         errorMessage.style.display = 'none'; // Скрываем сообщение, если поле заполнено
         usernameInput.classList.remove('error'); // Удаляем класс ошибки
-        // Здесь добавьте код для авторизации
+        // Показать лоадер и скрыть PopUp перед отправкой
+        loader.style.display = 'grid'; // Показываем лоадер
+        popUp.style.display = 'none'; // Скрываем PopUp
         authorizationForm.dispatchEvent(new Event('submit'));
-    }
-});
-usernameInput.addEventListener('input', () => {
-    if (usernameInput.value.length > 20) {
-        usernameInput.value = usernameInput.value.slice(0, 20); // Обрезаем ввод до 20 символов
     }
 });
 
