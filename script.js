@@ -157,7 +157,7 @@ async function authorization(event) {
 }
 
 // Функция отображения информации о пользователе
-function showUser() {
+async function showUser() {
     let popUpSection = document.querySelector("section");
     popUpSection.style.display = "none"; 
 
@@ -170,20 +170,25 @@ function showUser() {
 
     // Проверяем, есть ли сохраненный аватар в localStorage для данного пользователя
     let avatarImg = document.getElementById('userAvatar');
-    let avatarSrc = localStorage.getItem(`avatar_${username}`); // Сохраняем аватар с уникальным ключом для пользователя
+    let sidebarAvatarImg = document.getElementById('sidebarUserAvatar');
+    let avatarSrc = localStorage.getItem(`avatar_${username}`);
     
     if (!avatarSrc) {
         avatarSrc = getRandomAvatar(); // Генерируем случайный аватар, если нет сохраненного
         localStorage.setItem(`avatar_${username}`, avatarSrc); // Сохраняем его с уникальным ключом
     }
 
-    avatarImg.src = avatarSrc; // Устанавливаем аватар
-    avatarImg.style.display = 'inline'; // Показываем аватарку
+    // Предварительная загрузка изображения
+    const img = new Image();
+    img.src = avatarSrc;
 
-    // Устанавливаем аватарку в боковом меню
-    let sidebarAvatarImg = document.getElementById('sidebarUserAvatar');
-    sidebarAvatarImg.src = avatarSrc; // Используем тот же аватар
-    sidebarAvatarImg.style.display = 'inline'; // Показываем аватарку
+    img.onload = () => {
+        avatarImg.src = avatarSrc; // Устанавливаем аватар
+        avatarImg.style.display = 'inline'; // Показываем аватарку
+
+        sidebarAvatarImg.src = avatarSrc; // Устанавливаем аватарку в боковом меню
+        sidebarAvatarImg.style.display = 'inline'; // Показываем аватарку
+    };
 
     // Обновляем информацию в sidebar
     let sidebarUserInfo = document.querySelector(".sidebar-content .spanOne");
@@ -200,6 +205,7 @@ function showUser() {
         gameButton.setAttribute("data-game", "start");
     }
 }
+
 
 
 
