@@ -131,12 +131,16 @@ header{
   width: 45px;
   border-radius: 50%;
   display: none;
+  overflow: hidden;
+  box-shadow: -1px 0px 0px 2px #2af599, 0px 0px 0px 3px #0DBBDD;
 }
 #sidebarUserAvatar{
   width: 120px;
   border-radius: 50%;
   display: none;
   margin-bottom: 20px;
+  overflow: hidden;
+  box-shadow: -1px 0px 0px 2px #2af599, 0px 0px 0px 3px #0DBBDD;
 }
 
 
