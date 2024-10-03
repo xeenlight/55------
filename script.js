@@ -258,20 +258,43 @@ function setPoints() {
     points = +checkedBtn.value;
 }
 
-let gameButton = document.getElementById("gameButton");
-gameButton.addEventListener("click", startOrStopGame);
+document.addEventListener('DOMContentLoaded', () => {
+    let gameButton = document.getElementById("gameButton");
+    gameButton.addEventListener("click", startOrStopGame);
+    
+    // Функция запуска/остановки игры
+    function startOrStopGame() {
+        let option = gameButton.getAttribute("data-game");
+        const gameMenu = document.querySelector('.GameMenu');
+        const PointUser = document.querySelector('.PointUser');
 
-function startOrStopGame() {
-    let option = gameButton.getAttribute("data-game");
-    if (option === "start") {
-        if (points > 0) {
-            clearArea(); // Очищаем поле перед новой игрой
-            startGame(); // Запускаем новую игру
+        if (option === "start") {
+            if (points > 0) {
+                clearArea(); // Очищаем поле перед новой игрой
+                startGame(); // Запускаем новую игру
+
+                // Показываем GameMenu и скрываем PointUser
+                gameMenu.style.display = 'flex';
+                PointUser.style.display = 'none'; 
+                
+                // Обновляем статус кнопки
+                gameButton.setAttribute("data-game", "stop");
+                gameButton.innerHTML = "Завершить игру";
+            }
+        } else if (option === "stop") {
+            stopGame(); // Останавливаем игру
+            
+            // Возвращаем элементы в исходное состояние
+            gameMenu.style.display = 'none'; // Скрываем GameMenu
+            PointUser.style.display = 'block'; // Показываем PointUser
+            
+            // Обновляем статус кнопки
+            gameButton.setAttribute("data-game", "start");
+            gameButton.innerHTML = "Играть";
         }
-    } else if (option === "stop") {
-        stopGame(); // Останавливаем игру
     }
-}
+});
+
 
 
 
@@ -299,7 +322,7 @@ async function startGame() {
         console.log(response);
         game_id = response.game_id;
         gameButton.setAttribute("data-game", "stop");
-        gameButton.innerHTML = "ЗАВЕРШИТЬ ИГРУ";
+        gameButton.innerHTML = "Завершить игру";
         activateArea();
     }
 }
@@ -322,9 +345,11 @@ async function startGame() {
     });
   }
   
-  let flagCount = 0; // Переменная для отслеживания количества флажков
+let flagCount = 0; // Количество установленных флажков
+const maxFlags = 10; // Максимальное количество флажков
+const flagDisplay = document.querySelector('.flagAll'); // Все элементы h5 внутри BombFlag
 
-  function setFlag(event) {
+function setFlag(event) {
     event.preventDefault();
     let cell = event.target;
 
@@ -339,14 +364,41 @@ async function startGame() {
         flagCount--; // Уменьшаем счетчик флажков
     } else {
         // Проверяем, не превышает ли установка нового флажка лимит
-        if (flagCount < 10) {
+        if (flagCount < maxFlags) {
             cell.classList.add("flag");
             flagCount++; // Увеличиваем счетчик флажков
         } else {
             alert("Вы можете установить только 10 флажков."); // Уведомляем пользователя
         }
     }
+
+    // Обновляем отображение количества флажков
+    updateFlagDisplay();
 }
+
+function updateFlagDisplay() {
+    // Вычисляем оставшиеся флажки
+    const remainingFlags = maxFlags - flagCount;
+
+    // Обновляем текст в обоих элементах h5
+    flagDisplay.forEach(display => {
+        display.innerText = remainingFlags; // Обновляем текст
+    });
+}
+
+// Инициализация при загрузке
+updateFlagDisplay(); // Устанавливаем начальное значение
+
+  
+  function updateFlagDisplay() {
+      // Вычисляем оставшиеся флажки
+      const remainingFlags = maxFlags - flagCount;
+      flagDisplay.innerText = remainingFlags; // Обновляем текст в элементе h5
+  }
+  
+  // Инициализация при загрузке
+  updateFlagDisplay(); // Устанавливаем начальное значение
+  
 
 
   
@@ -365,7 +417,7 @@ async function startGame() {
             balance = response.balance;
             showUser();
             gameButton.setAttribute("data-game", "start");
-            gameButton.innerHTML = "ИГРАТЬ";
+            gameButton.innerHTML = "Играть";
             // Добавляем задержку перед показом сообщения
 
         }
@@ -420,7 +472,7 @@ function updateArea(table) {
         showUser();
         game_id = "";
         gameButton.setAttribute("data-game", "start");
-        gameButton.innerHTML = "ИГРАТЬ";
+        gameButton.innerHTML = "Играть";
         clearArea(); // Очищаем поле после завершения игры
     }
 }
