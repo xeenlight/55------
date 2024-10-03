@@ -258,45 +258,8 @@ function setPoints() {
     points = +checkedBtn.value;
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    let gameButton = document.getElementById("gameButton");
-    gameButton.addEventListener("click", startOrStopGame);
-    
-    // Функция запуска/остановки игры
-    function startOrStopGame() {
-        let option = gameButton.getAttribute("data-game");
-        const gameMenu = document.querySelector('.GameMenu');
-        const PointUser = document.querySelector('.PointUser');
-
-        if (option === "start") {
-            if (points > 0) {
-                clearArea(); // Очищаем поле перед новой игрой
-                startGame(); // Запускаем новую игру
-
-                // Показываем GameMenu и скрываем PointUser
-                gameMenu.style.display = 'flex';
-                PointUser.style.display = 'none'; 
-                
-                // Обновляем статус кнопки
-                gameButton.setAttribute("data-game", "stop");
-                gameButton.innerHTML = "Завершить игру";
-            }
-        } else if (option === "stop") {
-            stopGame(); // Останавливаем игру
-            
-            // Возвращаем элементы в исходное состояние
-            gameMenu.style.display = 'none'; // Скрываем GameMenu
-            PointUser.style.display = 'block'; // Показываем PointUser
-            
-            // Обновляем статус кнопки
-            gameButton.setAttribute("data-game", "start");
-            gameButton.innerHTML = "Играть";
-        }
-    }
-});
-
-
-
+let gameButton = document.getElementById("gameButton");
+gameButton.addEventListener("click", startOrStopGame);
 
 function startOrStopGame() {
     let option = gameButton.getAttribute("data-game");
@@ -310,6 +273,45 @@ function startOrStopGame() {
     }
 }
 
+
+
+// Получаем ссылки на элементы
+const pointUserDiv = document.querySelector('.PointUser');
+const gameMenuDiv = document.querySelector('.GameMenu');
+
+// Изменяем обработчик для кнопки "Играть"
+gameButton.addEventListener("click", startOrStopGame);
+
+function startOrStopGame() {
+    let option = gameButton.getAttribute("data-game");
+    
+    if (option === "start") {
+        if (points > 0) {
+            clearArea(); // Очищаем поле перед новой игрой
+            startGame(); // Запускаем новую игру
+            
+            // Скрываем PointUser и показываем GameMenu
+            pointUserDiv.style.display = 'none';
+            gameMenuDiv.style.display = 'flex';
+        }
+    } else if (option === "stop") {
+        stopGame(); // Останавливаем игру
+        
+        // Скрываем GameMenu и показываем PointUser
+        gameMenuDiv.style.display = 'none';
+        pointUserDiv.style.display = 'block';
+    } else if (gameButton.innerHTML === "Играть снова") {
+        // Если кнопка "Играть снова", запускаем новую игру
+        clearArea(); // Очищаем поле перед новой игрой
+        startGame(); // Запускаем новую игру
+        
+        // Скрываем PointUser и показываем GameMenu
+        pointUserDiv.style.display = 'none';
+        gameMenuDiv.style.display = 'flex';
+    }
+}
+
+
   
 async function startGame() {
     // Сбрасываем счетчик флажков
@@ -322,7 +324,7 @@ async function startGame() {
         console.log(response);
         game_id = response.game_id;
         gameButton.setAttribute("data-game", "stop");
-        gameButton.innerHTML = "Завершить игру";
+        gameButton.innerHTML = "ЗАВЕРШИТЬ ИГРУ";
         activateArea();
     }
 }
@@ -345,11 +347,9 @@ async function startGame() {
     });
   }
   
-let flagCount = 0; // Количество установленных флажков
-const maxFlags = 10; // Максимальное количество флажков
-const flagDisplay = document.querySelector('.flagAll'); // Убедитесь, что этот элемент существует
+  let flagCount = 0; // Переменная для отслеживания количества флажков
 
-function setFlag(event) {
+  function setFlag(event) {
     event.preventDefault();
     let cell = event.target;
 
@@ -364,57 +364,19 @@ function setFlag(event) {
         flagCount--; // Уменьшаем счетчик флажков
     } else {
         // Проверяем, не превышает ли установка нового флажка лимит
-        if (flagCount < maxFlags) {
+        if (flagCount < 10) {
             cell.classList.add("flag");
             flagCount++; // Увеличиваем счетчик флажков
         } else {
             alert("Вы можете установить только 10 флажков."); // Уведомляем пользователя
         }
     }
-
-    // Обновляем отображение количества флажков
-    updateFlagDisplay(); // Обязательно вызываем здесь
 }
 
-function updateFlagDisplay() {
-    // Вычисляем оставшиеся флажки
-    const remainingFlags = maxFlags - flagCount;
-
-    // Обновляем текст в элементе h5
-    flagDisplay.innerText = remainingFlags; // Обновляем текст в элементе h5
-}
-
-// Инициализация при загрузке
-updateFlagDisplay(); // Устанавливаем начальное значение
-
-function updateFlagDisplay() {
-    // Вычисляем оставшиеся флажки
-    const remainingFlags = maxFlags - flagCount;
-
-    // Обновляем текст в обоих элементах h5
-    flagDisplay.forEach(display => {
-        display.innerText = remainingFlags; // Обновляем текст
-    });
-}
-
-// Инициализация при загрузке
-updateFlagDisplay(); // Устанавливаем начальное значение
-
-  
-  function updateFlagDisplay() {
-      // Вычисляем оставшиеся флажки
-      const remainingFlags = maxFlags - flagCount;
-      flagDisplay.innerText = remainingFlags; // Обновляем текст в элементе h5
-  }
-  
-  // Инициализация при загрузке
-  updateFlagDisplay(); // Устанавливаем начальное значение
-  
-
 
   
   
-  async function makeStep(event) {
+async function makeStep(event) {
     let cell = event.target;
     let row = +cell.getAttribute("data-row");
     let column = +cell.getAttribute("data-column");
@@ -428,19 +390,19 @@ updateFlagDisplay(); // Устанавливаем начальное значе
             balance = response.balance;
             showUser();
             gameButton.setAttribute("data-game", "start");
-            gameButton.innerHTML = "Играть";
-            // Добавляем задержку перед показом сообщения
+            gameButton.innerHTML = "Играть снова"; // Изменяем текст кнопки
 
-        }
-        
-        else if (response.status === "Ok") {
+            // Скрываем GameMenu и показываем PointUser
+            gameMenuDiv.style.display = 'none';
+            pointUserDiv.style.display = 'block';
+        } else if (response.status === "Ok") {
             updateArea(response.table);
         }
     }
-  }
+}
   
 
-  function updateArea(table) {
+function updateArea(table) {
     let cells = document.querySelectorAll(".cell");
     let j = 0;
     for (let row = 0; row < table.length; row++) {
@@ -450,7 +412,6 @@ updateFlagDisplay(); // Устанавливаем начальное значе
                 if (cells[j].classList.contains("flag")) {
                     cells[j].classList.remove("flag"); // Убираем флажок, если он был установлен
                     flagCount--; // Уменьшаем счётчик флажков
-                    updateFlagDisplay(); // Обновляем отображение флажков
                 }
                 cells[j].classList.remove("active");
                 cells[j].innerHTML = ''; // Пустая ячейка
@@ -458,7 +419,6 @@ updateFlagDisplay(); // Устанавливаем начальное значе
                 if (cells[j].classList.contains("flag")) {
                     cells[j].classList.remove("flag"); // Убираем флажок
                     flagCount--; // Уменьшаем счётчик флажков
-                    updateFlagDisplay(); // Обновляем отображение флажков
                 }
                 cells[j].classList.remove("active");
                 cells[j].innerHTML = value; // Число
@@ -466,7 +426,6 @@ updateFlagDisplay(); // Устанавливаем начальное значе
                 if (cells[j].classList.contains("flag")) {
                     cells[j].classList.remove("flag"); // Убираем флажок
                     flagCount--; // Уменьшаем счётчик флажков
-                    updateFlagDisplay(); // Обновляем отображение флажков
                 }
                 cells[j].classList.remove("active");
                 cells[j].classList.add("bomb"); // Бомба
@@ -475,7 +434,6 @@ updateFlagDisplay(); // Устанавливаем начальное значе
         }
     }
 }
-
 
   async function stopGame() {
     let response = await sendRequest("stop_game", "POST", { username, game_id });
@@ -487,7 +445,7 @@ updateFlagDisplay(); // Устанавливаем начальное значе
         showUser();
         game_id = "";
         gameButton.setAttribute("data-game", "start");
-        gameButton.innerHTML = "Играть";
+        gameButton.innerHTML = "ИГРАТЬ";
         clearArea(); // Очищаем поле после завершения игры
     }
 }
