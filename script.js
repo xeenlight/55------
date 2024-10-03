@@ -347,7 +347,7 @@ async function startGame() {
   
 let flagCount = 0; // Количество установленных флажков
 const maxFlags = 10; // Максимальное количество флажков
-const flagDisplay = document.querySelector('.flagAll'); // Все элементы h5 внутри BombFlag
+const flagDisplay = document.querySelector('.flagAll'); // Убедитесь, что этот элемент существует
 
 function setFlag(event) {
     event.preventDefault();
@@ -373,8 +373,19 @@ function setFlag(event) {
     }
 
     // Обновляем отображение количества флажков
-    updateFlagDisplay();
+    updateFlagDisplay(); // Обязательно вызываем здесь
 }
+
+function updateFlagDisplay() {
+    // Вычисляем оставшиеся флажки
+    const remainingFlags = maxFlags - flagCount;
+
+    // Обновляем текст в элементе h5
+    flagDisplay.innerText = remainingFlags; // Обновляем текст в элементе h5
+}
+
+// Инициализация при загрузке
+updateFlagDisplay(); // Устанавливаем начальное значение
 
 function updateFlagDisplay() {
     // Вычисляем оставшиеся флажки
@@ -429,7 +440,7 @@ updateFlagDisplay(); // Устанавливаем начальное значе
   }
   
 
-function updateArea(table) {
+  function updateArea(table) {
     let cells = document.querySelectorAll(".cell");
     let j = 0;
     for (let row = 0; row < table.length; row++) {
@@ -439,6 +450,7 @@ function updateArea(table) {
                 if (cells[j].classList.contains("flag")) {
                     cells[j].classList.remove("flag"); // Убираем флажок, если он был установлен
                     flagCount--; // Уменьшаем счётчик флажков
+                    updateFlagDisplay(); // Обновляем отображение флажков
                 }
                 cells[j].classList.remove("active");
                 cells[j].innerHTML = ''; // Пустая ячейка
@@ -446,6 +458,7 @@ function updateArea(table) {
                 if (cells[j].classList.contains("flag")) {
                     cells[j].classList.remove("flag"); // Убираем флажок
                     flagCount--; // Уменьшаем счётчик флажков
+                    updateFlagDisplay(); // Обновляем отображение флажков
                 }
                 cells[j].classList.remove("active");
                 cells[j].innerHTML = value; // Число
@@ -453,6 +466,7 @@ function updateArea(table) {
                 if (cells[j].classList.contains("flag")) {
                     cells[j].classList.remove("flag"); // Убираем флажок
                     flagCount--; // Уменьшаем счётчик флажков
+                    updateFlagDisplay(); // Обновляем отображение флажков
                 }
                 cells[j].classList.remove("active");
                 cells[j].classList.add("bomb"); // Бомба
@@ -461,6 +475,7 @@ function updateArea(table) {
         }
     }
 }
+
 
   async function stopGame() {
     let response = await sendRequest("stop_game", "POST", { username, game_id });
