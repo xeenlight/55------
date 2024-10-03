@@ -5,6 +5,7 @@ let headerImg = document.querySelector('header img');
 document.addEventListener('DOMContentLoaded', () => {
     updateTheme(); // Обновляем тему при загрузке страницы
     getRandomAvatar(); // Получаем случайный аватар
+    makeStep(event);
 
 });
 
@@ -130,6 +131,7 @@ async function sendRequest(url, method, data) {
 let username;
 let balance;
 checkUser();
+let game_id
 
 let points = 1000;
 
@@ -261,23 +263,188 @@ gameButton.addEventListener("click", startOrStopGame);
 
 function startOrStopGame() {
     let option = gameButton.getAttribute("data-game");
-    if (option == "start") {
+    if (option === "start") {
         if (points > 0) {
-            startGame();
+            clearArea(); // Очищаем поле перед новой игрой
+            startGame(); // Запускаем новую игру
         }
-    } else if (option == "stop") {
-        // Логика остановки игры
+    } else if (option === "stop") {
+        stopGame(); // Останавливаем игру
     }
 }
 
+
+
+function startOrStopGame() {
+    let option = gameButton.getAttribute("data-game");
+    if (option === "start") {
+        if (points > 0) {
+            clearArea(); // Очищаем поле перед новой игрой
+            startGame(); // Запускаем новую игру
+        }
+    } else if (option === "stop") {
+        stopGame(); // Останавливаем игру
+    }
+}
+
+  
 async function startGame() {
+    // Сбрасываем счетчик флажков
+    flagCount = 0;
+
     let response = await sendRequest("new_game", "POST", { username, points });
     if (response.error) {
         alert(response.message);
     } else {
         console.log(response);
+        game_id = response.game_id;
+        gameButton.setAttribute("data-game", "stop");
+        gameButton.innerHTML = "ЗАВЕРШИТЬ ИГРУ";
+        activateArea();
     }
 }
+
+  
+  function activateArea() {
+    let cells = document.querySelectorAll(".cell");
+    let columns = 10;
+    let rows = 8;
+    cells.forEach((cell, i) => {
+        setTimeout(() => {
+            let row = Math.floor(i / columns);
+            let column = i % columns;
+            cell.setAttribute("data-row", row);
+            cell.setAttribute("data-column", column);
+            cell.classList.add("active");
+            cell.addEventListener("contextmenu", setFlag);
+            cell.addEventListener("click", makeStep);
+        }, 10 * i);
+    });
+  }
+  
+  let flagCount = 0; // Переменная для отслеживания количества флажков
+
+  function setFlag(event) {
+    event.preventDefault();
+    let cell = event.target;
+
+    // Проверяем, является ли клетка неактивированной
+    if (!cell.classList.contains("active")) {
+        return; // Выходим из функции, если клетка неактивирована
+    }
+
+    // Проверяем, установлен ли уже флажок
+    if (cell.classList.contains("flag")) {
+        cell.classList.remove("flag");
+        flagCount--; // Уменьшаем счетчик флажков
+    } else {
+        // Проверяем, не превышает ли установка нового флажка лимит
+        if (flagCount < 10) {
+            cell.classList.add("flag");
+            flagCount++; // Увеличиваем счетчик флажков
+        } else {
+            alert("Вы можете установить только 10 флажков."); // Уведомляем пользователя
+        }
+    }
+}
+
+
+  
+  
+  async function makeStep(event) {
+    let cell = event.target;
+    let row = +cell.getAttribute("data-row");
+    let column = +cell.getAttribute("data-column");
+  
+    let response = await sendRequest("game_step", "POST", { game_id, row, column });
+    if (response.error) {
+        alert(response.message);
+    } else {
+        if (response.status === "Won" || response.status === "Failed") {
+            updateArea(response.table);
+            balance = response.balance;
+            showUser();
+            gameButton.setAttribute("data-game", "start");
+            gameButton.innerHTML = "ИГРАТЬ";
+            // Добавляем задержку перед показом сообщения
+
+        }
+        
+        else if (response.status === "Ok") {
+            updateArea(response.table);
+        }
+    }
+  }
+  
+
+function updateArea(table) {
+    let cells = document.querySelectorAll(".cell");
+    let j = 0;
+    for (let row = 0; row < table.length; row++) {
+        for (let column = 0; column < table[row].length; column++) {
+            let value = table[row][column];
+            if (value === 0) {
+                if (cells[j].classList.contains("flag")) {
+                    cells[j].classList.remove("flag"); // Убираем флажок, если он был установлен
+                    flagCount--; // Уменьшаем счётчик флажков
+                }
+                cells[j].classList.remove("active");
+                cells[j].innerHTML = ''; // Пустая ячейка
+            } else if (value >= 1) {
+                if (cells[j].classList.contains("flag")) {
+                    cells[j].classList.remove("flag"); // Убираем флажок
+                    flagCount--; // Уменьшаем счётчик флажков
+                }
+                cells[j].classList.remove("active");
+                cells[j].innerHTML = value; // Число
+            } else if (value === "BOMB") {
+                if (cells[j].classList.contains("flag")) {
+                    cells[j].classList.remove("flag"); // Убираем флажок
+                    flagCount--; // Уменьшаем счётчик флажков
+                }
+                cells[j].classList.remove("active");
+                cells[j].classList.add("bomb"); // Бомба
+            }
+            j++;
+        }
+    }
+}
+
+  async function stopGame() {
+    let response = await sendRequest("stop_game", "POST", { username, game_id });
+    if (response.error) {
+        alert(response.message);
+    } else {
+        console.log(response);
+        balance = response.balance;
+        showUser();
+        game_id = "";
+        gameButton.setAttribute("data-game", "start");
+        gameButton.innerHTML = "ИГРАТЬ";
+        clearArea(); // Очищаем поле после завершения игры
+    }
+}
+
+function clearArea() {
+    const area = document.querySelector(".area");
+    area.innerHTML = ""; // Очищаем содержимое области
+    for (let i = 0; i < 80; i++) {
+        const cell = document.createElement("div");
+        cell.classList.add("cell");
+
+        // Добавляем класс в зависимости от текущей темы
+        if (isDarkTheme) {
+            cell.classList.add("dark");
+        } else {
+            cell.classList.add("light");
+        }
+
+        area.appendChild(cell); // Добавляем новую ячейку
+    }
+}
+
+
+
 
 // Добавляем обработчик клика для кнопки "Войти"
 const registrationButton = document.getElementById('registrationButton');

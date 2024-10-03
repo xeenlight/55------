@@ -271,11 +271,11 @@ label:active {
   transform: scale(1); /* Возврат к изначальному размеру при нажатии */
 }
 
-.cell.active{
+.cell.passiv{
   background-color:var(--light-green);
   background-size: contain;
 }
-.cell.passiv{
+.cell.active{
   background-color:var(--grey);
   background-size: contain;
 }
@@ -533,7 +533,7 @@ input.error {
 }
 
 
-/* HTML: <div class="loader"></div> */
+
 .loader {
   width: 100px;
   aspect-ratio: 1;
