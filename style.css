@@ -599,3 +599,6 @@ input.error {
   text-align: center;
   font-weight: bold;
 }
+#backToPointsButton {
+  display: none; /* Скрыть кнопку изначально */
+}

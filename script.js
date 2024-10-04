@@ -258,20 +258,7 @@ function setPoints() {
     points = +checkedBtn.value;
 }
 
-let gameButton = document.getElementById("gameButton");
-gameButton.addEventListener("click", startOrStopGame);
 
-function startOrStopGame() {
-    let option = gameButton.getAttribute("data-game");
-    if (option === "start") {
-        if (points > 0) {
-            clearArea(); // Очищаем поле перед новой игрой
-            startGame(); // Запускаем новую игру
-        }
-    } else if (option === "stop") {
-        stopGame(); // Останавливаем игру
-    }
-}
 
 
 
@@ -315,7 +302,8 @@ function startOrStopGame() {
   
 async function startGame() {
     // Сбрасываем счетчик флажков
-    flagCount = 0;
+    flagCount = 0; // Обнуляем текущий счетчик флажков
+    updateFlagCounter(); // Обновляем отображение счетчика флажков
 
     let response = await sendRequest("new_game", "POST", { username, points });
     if (response.error) {
@@ -325,7 +313,7 @@ async function startGame() {
         game_id = response.game_id;
         gameButton.setAttribute("data-game", "stop");
         gameButton.innerHTML = "ЗАВЕРШИТЬ ИГРУ";
-        activateArea();
+        activateArea(); // Активируем игровую область
     }
 }
 
@@ -347,8 +335,9 @@ async function startGame() {
     });
   }
   
-  let flagCount = 0; // Переменная для отслеживания количества флажков
-
+  let maxFlags = 10; // Максимальное количество флажков
+  let flagCount = 0; // Текущее количество установленных флажков
+  
   function setFlag(event) {
     event.preventDefault();
     let cell = event.target;
@@ -364,14 +353,23 @@ async function startGame() {
         flagCount--; // Уменьшаем счетчик флажков
     } else {
         // Проверяем, не превышает ли установка нового флажка лимит
-        if (flagCount < 10) {
+        if (flagCount < maxFlags) {
             cell.classList.add("flag");
             flagCount++; // Увеличиваем счетчик флажков
         } else {
             alert("Вы можете установить только 10 флажков."); // Уведомляем пользователя
         }
     }
+
+    // Обновляем счетчик на странице
+    updateFlagCounter();
 }
+
+function updateFlagCounter() {
+    const flagCounterElement = document.querySelector('.flagAll');
+    flagCounterElement.innerHTML = maxFlags - flagCount; // Обновляем значение счетчика
+}
+  
 
 
   
@@ -380,7 +378,7 @@ async function makeStep(event) {
     let cell = event.target;
     let row = +cell.getAttribute("data-row");
     let column = +cell.getAttribute("data-column");
-  
+
     let response = await sendRequest("game_step", "POST", { game_id, row, column });
     if (response.error) {
         alert(response.message);
@@ -389,18 +387,21 @@ async function makeStep(event) {
             updateArea(response.table);
             balance = response.balance;
             showUser();
-            gameButton.setAttribute("data-game", "start");
-            gameButton.innerHTML = "Играть снова"; // Изменяем текст кнопки
 
-            // Скрываем GameMenu и показываем PointUser
-            gameMenuDiv.style.display = 'none';
-            pointUserDiv.style.display = 'block';
+            // Скрываем PointUser и показываем GameMenu
+            pointUserDiv.style.display = 'block'; // Скрываем блок с очками
+            gameMenuDiv.style.display = 'flex'; // Показываем меню игры
+
+            // Изменяем текст кнопки
+            gameButton.innerHTML = "Играть снова"; // Измените текст кнопки по желанию
         } else if (response.status === "Ok") {
             updateArea(response.table);
         }
     }
 }
-  
+
+
+
 
 function updateArea(table) {
     let cells = document.querySelectorAll(".cell");
@@ -412,20 +413,23 @@ function updateArea(table) {
                 if (cells[j].classList.contains("flag")) {
                     cells[j].classList.remove("flag"); // Убираем флажок, если он был установлен
                     flagCount--; // Уменьшаем счётчик флажков
+                    updateFlagCounter(); // Обновляем счетчик флажков на странице
                 }
                 cells[j].classList.remove("active");
                 cells[j].innerHTML = ''; // Пустая ячейка
             } else if (value >= 1) {
                 if (cells[j].classList.contains("flag")) {
-                    cells[j].classList.remove("flag"); // Убираем флажок
+                    cells[j].classList.remove("flag"); // Убираем флажок, если он был установлен
                     flagCount--; // Уменьшаем счётчик флажков
+                    updateFlagCounter(); // Обновляем счетчик флажков на странице
                 }
                 cells[j].classList.remove("active");
                 cells[j].innerHTML = value; // Число
             } else if (value === "BOMB") {
                 if (cells[j].classList.contains("flag")) {
-                    cells[j].classList.remove("flag"); // Убираем флажок
+                    cells[j].classList.remove("flag"); // Убираем флажок, если он был установлен
                     flagCount--; // Уменьшаем счётчик флажков
+                    updateFlagCounter(); // Обновляем счетчик флажков на странице
                 }
                 cells[j].classList.remove("active");
                 cells[j].classList.add("bomb"); // Бомба
@@ -434,6 +438,9 @@ function updateArea(table) {
         }
     }
 }
+
+
+
 
   async function stopGame() {
     let response = await sendRequest("stop_game", "POST", { username, game_id });
