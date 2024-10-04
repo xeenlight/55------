@@ -301,6 +301,10 @@ function startOrStopGame() {
 
   
 async function startGame() {
+    // Скрываем сообщения о выигрыше и проигрыше
+    document.querySelector('.FailedUser').style.display = 'none';
+    document.querySelector('.WinUser').style.display = 'none';
+
     // Сбрасываем счетчик флажков
     flagCount = 0; // Обнуляем текущий счетчик флажков
     updateFlagCounter(); // Обновляем отображение счетчика флажков
@@ -312,7 +316,7 @@ async function startGame() {
         console.log(response);
         game_id = response.game_id;
         gameButton.setAttribute("data-game", "stop");
-        gameButton.innerHTML = "ЗАВЕРШИТЬ ИГРУ";
+        gameButton.innerHTML = "Играть ещё";
         activateArea(); // Активируем игровую область
     }
 }
@@ -383,22 +387,30 @@ async function makeStep(event) {
     if (response.error) {
         alert(response.message);
     } else {
-        if (response.status === "Won" || response.status === "Failed") {
+        if (response.status === "Won") {
             updateArea(response.table);
             balance = response.balance;
             showUser();
-
-            // Скрываем PointUser и показываем GameMenu
-            pointUserDiv.style.display = 'block'; // Скрываем блок с очками
-            gameMenuDiv.style.display = 'flex'; // Показываем меню игры
-
-            // Изменяем текст кнопки
-            gameButton.innerHTML = "Играть снова"; // Измените текст кнопки по желанию
+            document.querySelector('.WinUser').style.display = 'block'; // Показываем сообщение о выигрыше
+            document.querySelector('.FailedUser').style.display = 'none'; // Скрываем сообщение о проигрыше
+            document.querySelector('.PointUser').style.display = 'block'; // Показываем PointUser
+            document.querySelector('.GameMenu').style.display = 'none'; // Скрываем GameMenu
+        } else if (response.status === "Failed") {
+            updateArea(response.table);
+            balance = response.balance;
+            showUser();
+            document.querySelector('.FailedUser').style.display = 'block'; // Показываем сообщение о проигрыше
+            document.querySelector('.WinUser').style.display = 'none'; // Скрываем сообщение о выигрыше
+            document.querySelector('.PointUser').style.display = 'block'; // Показываем PointUser
+            document.querySelector('.GameMenu').style.display = 'none'; // Скрываем GameMenu
         } else if (response.status === "Ok") {
             updateArea(response.table);
         }
     }
 }
+
+
+
 
 
 
@@ -452,7 +464,7 @@ function updateArea(table) {
         showUser();
         game_id = "";
         gameButton.setAttribute("data-game", "start");
-        gameButton.innerHTML = "ИГРАТЬ";
+        gameButton.innerHTML = "Играть";
         clearArea(); // Очищаем поле после завершения игры
     }
 }

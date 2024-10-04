@@ -599,6 +599,26 @@ input.error {
   text-align: center;
   font-weight: bold;
 }
-#backToPointsButton {
-  display: none; /* Скрыть кнопку изначально */
+.FailedUser {
+  display: none;
+  text-align: center; /* Центрируем текст */
+  font-size: 20px; /* Устанавливаем размер шрифта */
+  background-color: rgba(255, 0, 0, 0.3); /* Полупрозрачный красный фон */
+  border: 1px solid red; /* Тонкая обводка красным цветом */
+  border-radius: 10px; /* Закругленные края */
+  padding: 10px; /* Добавляем немного внутреннего отступа */
+  margin-bottom: 20px;
+
+  color: rgb(247, 247, 247);
+}
+.WinUser {
+  display: none;
+  text-align: center; /* Центрируем текст */
+  font-size: 20px; /* Устанавливаем размер шрифта */
+  background-color: rgba(0, 255, 0, 0.3); /* Полупрозрачный зеленый фон */
+  border: 1px solid green; /* Тонкая обводка зеленым цветом */
+  border-radius: 10px; /* Закругленные края */
+  padding: 10px; /* Добавляем немного внутреннего отступа */
+  margin-bottom: 20px;
+  color: rgb(247, 247, 247);
 }
