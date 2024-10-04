@@ -361,7 +361,6 @@ async function startGame() {
             cell.classList.add("flag");
             flagCount++; // Увеличиваем счетчик флажков
         } else {
-            alert("Вы можете установить только 10 флажков."); // Уведомляем пользователя
         }
     }
 
