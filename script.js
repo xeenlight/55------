@@ -404,13 +404,23 @@ function startOrStopGame() {
             cell.classList.add("flag");
             flagCount++; // Увеличиваем счетчик флажков
         } else {
-            alert("Вы можете установить только 10 флажков."); // Уведомляем пользователя
+            // Получаем второй элемент с классом BombFlag
+            const bombFlagElements = document.querySelectorAll('.BombFlag');
+            const flagCountElement = bombFlagElements[1]; // Выбираем второй элемент
+
+            flagCountElement.classList.add('red-border'); // Добавляем красную обводку
+
+            // Убираем класс через 1 секунду
+            setTimeout(() => {
+                flagCountElement.classList.remove('red-border');
+            }, 1000);
         }
     }
 
     // Обновляем счетчик на странице
     updateFlagCounter();
 }
+
 
 function updateFlagCounter() {
     const flagCounterElement = document.querySelector('.flagAll');
@@ -420,7 +430,8 @@ function updateFlagCounter() {
 
 
   
-  
+let gameActive = true; // Изменяйте на false при выигрыше или проигрыше
+
 async function makeStep(event) {
     let cell = event.target;
     let row = +cell.getAttribute("data-row");
@@ -428,7 +439,7 @@ async function makeStep(event) {
 
     let response = await sendRequest("game_step", "POST", { game_id, row, column });
     if (response.error) {
-        alert(response.message);
+       
     } else {
         if (response.status === "Won") {
             updateArea(response.table);

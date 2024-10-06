@@ -577,7 +577,7 @@ input.error {
   align-items: center; 
   flex: 1; 
   min-width: 0; 
-  box-sizing: border-box; /
+  box-sizing: border-box; 
 }
 
 .light-theme .BombFlag {
@@ -585,6 +585,16 @@ input.error {
   border-radius: 25px;
   padding: 10px;
 }
+.red-border {
+  outline: 2px solid red; /* Красная обводка */
+  outline-offset: -2px;   /* Сдвиг обводки */
+  background-color: rgba(255, 0, 0, 0.42);
+  transition: outline 0.3s ease, background-color 0.3s ease;
+}
+.light-theme .red-border {
+  background-color: rgba(255, 0, 0, 0.3); /* Убедитесь, что фон применим */
+}
+
 .BombFlag img{
   width: 80px;
   margin-bottom: 10px;
