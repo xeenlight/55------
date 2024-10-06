@@ -328,43 +328,7 @@ async function startGame() {
         gameMenuDiv.style.display = 'flex';
     }
 }
-gameButton.addEventListener("click", startOrStopGame);
 
-function startOrStopGame() {
-    let option = gameButton.getAttribute("data-game");
-    
-    if (option === "start") {
-        if (points > 0) {
-            clearArea(); // Очищаем поле перед новой игрой
-            startGame(); // Запускаем новую игру
-            
-            // Скрываем PointUser и показываем GameMenu
-            pointUserDiv.style.display = 'none';
-            gameMenuDiv.style.display = 'flex';
-        }
-    } else if (option === "stop") {
-        stopGame(); // Останавливаем игру
-        
-        // Скрываем GameMenu и показываем PointUser
-        gameMenuDiv.style.display = 'none';
-        pointUserDiv.style.display = 'block';
-    } else if (gameButton.innerHTML === "Играть снова") {
-        // Если кнопка "Играть снова", запускаем новую игру
-        clearArea(); // Очищаем поле перед новой игрой
-        startGame(); // Запускаем новую игру
-        
-        // Скрываем сообщения о выигрыше и проигрыше
-        document.querySelector('.WinUser').style.display = 'none';
-        document.querySelector('.FailedUser').style.display = 'none';
-
-        // Скрываем PointUser и показываем GameMenu
-        pointUserDiv.style.display = 'none';
-        gameMenuDiv.style.display = 'flex';
-    }
-}
-
-
-  
   function activateArea() {
     let cells = document.querySelectorAll(".cell");
     let columns = 10;
